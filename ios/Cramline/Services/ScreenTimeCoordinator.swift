@@ -16,6 +16,7 @@ final class ScreenTimeCoordinator: ObservableObject {
   private let activityCenter: DeviceActivityCenter
   private let settingsStore: ManagedSettingsStore
   private let sharedState: SharedScreenTimeState
+  private let isUITesting: Bool
 
   init(
     authorizationCenter: AuthorizationCenter = .shared,
@@ -23,13 +24,15 @@ final class ScreenTimeCoordinator: ObservableObject {
     settingsStore: ManagedSettingsStore = ManagedSettingsStore(named: .cramline),
     sharedState: SharedScreenTimeState = .shared
   ) {
+    let isUITesting = ProcessInfo.processInfo.arguments.contains("-ui-testing")
     self.authorizationCenter = authorizationCenter
     self.activityCenter = activityCenter
     self.settingsStore = settingsStore
     self.sharedState = sharedState
+    self.isUITesting = isUITesting
     self.selection = Self.pickerSelection(from: sharedState.loadSelection())
-    self.authorizationStatus = authorizationCenter.authorizationStatus
-    refreshAuthorizationState()
+    self.authorizationStatus = isUITesting ? .approved : authorizationCenter.authorizationStatus
+    if !isUITesting { refreshAuthorizationState() }
   }
 
   var selectedApplicationCount: Int { selection.applicationTokens.count }
@@ -58,6 +61,10 @@ final class ScreenTimeCoordinator: ObservableObject {
   }
 
   func refreshAuthorizationState() {
+    if isUITesting {
+      authorizationStatus = .approved
+      return
+    }
     authorizationStatus = authorizationCenter.authorizationStatus
     switch authorizationStatus {
     case .approved:
@@ -184,6 +191,10 @@ final class ScreenTimeCoordinator: ObservableObject {
 
   func emergencyPause(for session: SessionState, now: Date = Date()) throws -> Date {
     let pauseUntil = min(now.addingTimeInterval(15 * 60), session.plannedEnd)
+    if isUITesting {
+      displayedState = .paused
+      return pauseUntil
+    }
     clearShield()
     try sharedState.saveSession(
       SharedSessionSnapshot(
@@ -209,6 +220,10 @@ final class ScreenTimeCoordinator: ObservableObject {
   }
 
   func endCurrentSession() {
+    if isUITesting {
+      displayedState = .ended
+      return
+    }
     clearShield()
     if let sessionID = sharedState.loadSession()?.sessionID {
       activityCenter.stopMonitoring([.oneOff(sessionID), .pauseResume(sessionID)])
@@ -223,6 +238,12 @@ final class ScreenTimeCoordinator: ObservableObject {
   }
 
   func deleteAllLocalControls() {
+    if isUITesting {
+      selection = FamilyActivitySelection(includeEntireCategory: true)
+      convertedCategorySelection = false
+      displayedState = .ended
+      return
+    }
     clearShield()
     stopCramlineMonitoring()
     sharedState.clearAll()

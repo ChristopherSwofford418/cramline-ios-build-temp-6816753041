@@ -104,6 +104,7 @@ targets:
         PRODUCT_NAME: $(CRAMLINE_APP_NAME)
         INFOPLIST_KEY_CFBundleDisplayName: $(CRAMLINE_APP_NAME)
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
     dependencies:
       - package: CramlineCore
       - package: Firebase

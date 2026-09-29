@@ -34,10 +34,10 @@ jobs:
           xcodebuild -project Cramline.xcodeproj -scheme Cramline -showBuildSettings > "$RUNNER_TEMP/build-settings.txt"
           grep -q 'PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline' "$RUNNER_TEMP/build-settings.txt"
 
-      - name: Run native unit tests
+      - name: Run iPhone native tests and UI capture
         run: |
           set -euo pipefail
-          UDID=$(python3 - <<'PY'
+          IPHONE_UDID=$(python3 - <<'PY'
           import json, subprocess
           data=json.loads(subprocess.check_output(['xcrun','simctl','list','devices','available','-j']))
           candidates=[]
@@ -52,29 +52,69 @@ jobs:
           print(sorted(candidates)[-1][1])
           PY
           )
-          xcrun simctl shutdown "$UDID" || true
-          xcrun simctl erase "$UDID"
-          xcrun simctl boot "$UDID"
-          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl shutdown "$IPHONE_UDID" || true
+          xcrun simctl erase "$IPHONE_UDID"
+          xcrun simctl boot "$IPHONE_UDID"
+          xcrun simctl bootstatus "$IPHONE_UDID" -b
           xcodebuild test \
             -project Cramline.xcodeproj \
             -scheme Cramline \
-            -destination "platform=iOS Simulator,id=$UDID" \
-            -resultBundlePath "$RUNNER_TEMP/CramlineTests.xcresult" \
+            -destination "platform=iOS Simulator,id=$IPHONE_UDID" \
+            -resultBundlePath "$RUNNER_TEMP/CramlineTests-iPhone.xcresult" \
             -parallel-testing-enabled NO \
             -maximum-parallel-testing-workers 1 \
             -jobs 2 \
             COMPILER_INDEX_STORE_ENABLE=NO \
             CODE_SIGNING_ALLOWED=NO
+          xcrun simctl shutdown "$IPHONE_UDID"
+
+      - name: Run iPad UI capture tests
+        run: |
+          set -euo pipefail
+          IPAD_UDID=$(python3 - <<'PY'
+          import json, subprocess
+          data=json.loads(subprocess.check_output(['xcrun','simctl','list','devices','available','-j']))
+          candidates=[]
+          for runtime, devices in data.get('devices',{}).items():
+              if 'iOS' not in runtime:
+                  continue
+              for device in devices:
+                  if device.get('isAvailable') and device.get('name','').startswith('iPad'):
+                      candidates.append((runtime, device['udid'], device['name']))
+          if not candidates:
+              raise SystemExit('No available iPad simulator')
+          print(sorted(candidates)[-1][1])
+          PY
+          )
+          xcrun simctl shutdown "$IPAD_UDID" || true
+          xcrun simctl erase "$IPAD_UDID"
+          xcrun simctl boot "$IPAD_UDID"
+          xcrun simctl bootstatus "$IPAD_UDID" -b
+          xcodebuild test \
+            -project Cramline.xcodeproj \
+            -scheme Cramline \
+            -destination "platform=iOS Simulator,id=$IPAD_UDID" \
+            -resultBundlePath "$RUNNER_TEMP/CramlineTests-iPad.xcresult" \
+            -only-testing:CramlineUITests \
+            -parallel-testing-enabled NO \
+            -maximum-parallel-testing-workers 1 \
+            -jobs 2 \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            CODE_SIGNING_ALLOWED=NO
+          xcrun simctl shutdown "$IPAD_UDID"
 
       - name: Export source-grounded UI captures
         run: |
           set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/ui-test-attachments"
+          mkdir -p "$RUNNER_TEMP/source-ui-captures/iphone" "$RUNNER_TEMP/source-ui-captures/ipad"
           xcrun xcresulttool export attachments \
-            --path "$RUNNER_TEMP/CramlineTests.xcresult" \
-            --output-path "$RUNNER_TEMP/ui-test-attachments"
-          test "$(find "$RUNNER_TEMP/ui-test-attachments" -type f -iname '*.png' -size +0c | wc -l | tr -d ' ')" -ge 8
+            --path "$RUNNER_TEMP/CramlineTests-iPhone.xcresult" \
+            --output-path "$RUNNER_TEMP/source-ui-captures/iphone"
+          xcrun xcresulttool export attachments \
+            --path "$RUNNER_TEMP/CramlineTests-iPad.xcresult" \
+            --output-path "$RUNNER_TEMP/source-ui-captures/ipad"
+          test "$(find "$RUNNER_TEMP/source-ui-captures/iphone" -type f -iname '*.png' -size +0c | wc -l | tr -d ' ')" -ge 8
+          test "$(find "$RUNNER_TEMP/source-ui-captures/ipad" -type f -iname '*.png' -size +0c | wc -l | tr -d ' ')" -ge 8
 
       - name: Install distribution signing inputs
         env:
@@ -211,7 +251,7 @@ jobs:
           /usr/bin/codesign -dv --verbose=4 "$APP" 2> "$RUNNER_TEMP/inspection-report/codesign.txt"
           grep -q 'Authority=Apple Distribution' "$RUNNER_TEMP/inspection-report/codesign.txt"
           cp "$IPA" "$RUNNER_TEMP/inspection-report/Cramline-${MARKETING_VERSION}-${BUILD_NUMBER}.ipa"
-          cp -R "$RUNNER_TEMP/ui-test-attachments" "$RUNNER_TEMP/inspection-report/ui-captures"
+          cp -R "$RUNNER_TEMP/source-ui-captures" "$RUNNER_TEMP/inspection-report/ui-captures"
           python3 - <<'PY'
           import json, os
           from pathlib import Path

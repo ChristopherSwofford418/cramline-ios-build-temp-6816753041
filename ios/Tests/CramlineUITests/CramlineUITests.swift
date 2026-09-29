@@ -6,6 +6,13 @@ final class CramlineUITests: XCTestCase {
     continueAfterFailure = false
   }
 
+  private func capture(_ name: String, in app: XCUIApplication) {
+    let attachment = XCTAttachment(screenshot: app.screenshot())
+    attachment.name = name
+    attachment.lifetime = .keepAlways
+    add(attachment)
+  }
+
   func testOnboardingStatesAdultAndNonGuaranteeBoundary() throws {
     let app = XCUIApplication()
     app.launchArguments = ["-ui-testing", "-reset-local-state"]
@@ -20,6 +27,7 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(app.switches["I confirm I am 18 or older"].exists)
     XCTAssertTrue(app.buttons["Continue"].exists)
     XCTAssertFalse(app.buttons["Continue"].isEnabled)
+    capture("01-onboarding-boundary", in: app)
   }
 
   func testOnboardingRevealsSprintStepAfterAgeConfirmation() throws {
@@ -34,6 +42,7 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(app.staticTexts["Choose your study sprint"].waitForExistence(timeout: 2))
     XCTAssertTrue(app.datePickers["Sprint end date"].waitForExistence(timeout: 5))
     XCTAssertTrue(app.buttons["Back"].exists)
+    capture("02-sprint-setup", in: app)
   }
 
   func testEmergencyActionsRequireClearConfirmationAndRemainFree() throws {
@@ -44,9 +53,11 @@ final class CramlineUITests: XCTestCase {
     let pause = app.buttons["Emergency pause — 15 minutes"]
     XCTAssertTrue(pause.waitForExistence(timeout: 5))
     XCTAssertTrue(app.buttons["End today’s session"].exists)
+    capture("03-active-focus-session", in: app)
     pause.tap()
     XCTAssertTrue(app.buttons["Pause shield for 15 minutes"].waitForExistence(timeout: 2))
     XCTAssertTrue(app.buttons["Keep studying"].exists)
+    capture("04-emergency-control", in: app)
     app.buttons["Keep studying"].tap()
     app.buttons["End today’s session"].tap()
     XCTAssertTrue(app.buttons["End today’s session"].waitForExistence(timeout: 2))
@@ -64,6 +75,7 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(app.staticTexts["Shape a week you can repeat."].waitForExistence(timeout: 5))
     XCTAssertTrue(app.buttons["Save schedule changes"].exists)
     XCTAssertTrue(app.buttons["Draft on this device"].exists)
+    capture("05-plan-builder", in: app)
     app.swipeUp()
     app.swipeUp()
     XCTAssertTrue(
@@ -71,6 +83,7 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(
       app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'sends nothing anywhere'"))
         .firstMatch.exists)
+    capture("06-local-planning-boundary", in: app)
   }
 
   func testPrivacyScreenOffersTelemetryControlAndConfirmedDeletion() throws {
@@ -85,6 +98,7 @@ final class CramlineUITests: XCTestCase {
     app.swipeUp()
     let delete = app.buttons["Delete all local Cramline Exam Sprint data"]
     XCTAssertTrue(delete.waitForExistence(timeout: 2))
+    capture("07-privacy-controls", in: app)
     delete.tap()
     XCTAssertTrue(app.buttons["Delete all local data"].waitForExistence(timeout: 2))
     XCTAssertTrue(app.buttons["Cancel"].exists)
@@ -101,5 +115,6 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(app.staticTexts["No subscription offer is available in this build."].exists)
     XCTAssertFalse(app.buttons["Subscribe"].exists)
     XCTAssertFalse(app.buttons["Restore Purchases"].exists)
+    capture("08-premium-boundary", in: app)
   }
 }

@@ -60,11 +60,21 @@ jobs:
             -project Cramline.xcodeproj \
             -scheme Cramline \
             -destination "platform=iOS Simulator,id=$UDID" \
+            -resultBundlePath "$RUNNER_TEMP/CramlineTests.xcresult" \
             -parallel-testing-enabled NO \
             -maximum-parallel-testing-workers 1 \
             -jobs 2 \
             COMPILER_INDEX_STORE_ENABLE=NO \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Export source-grounded UI captures
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ui-test-attachments"
+          xcrun xcresulttool export attachments \
+            --path "$RUNNER_TEMP/CramlineTests.xcresult" \
+            --output-path "$RUNNER_TEMP/ui-test-attachments"
+          test "$(find "$RUNNER_TEMP/ui-test-attachments" -type f -iname '*.png' -size +0c | wc -l | tr -d ' ')" -ge 8
 
       - name: Install distribution signing inputs
         env:
@@ -201,6 +211,7 @@ jobs:
           /usr/bin/codesign -dv --verbose=4 "$APP" 2> "$RUNNER_TEMP/inspection-report/codesign.txt"
           grep -q 'Authority=Apple Distribution' "$RUNNER_TEMP/inspection-report/codesign.txt"
           cp "$IPA" "$RUNNER_TEMP/inspection-report/Cramline-${MARKETING_VERSION}-${BUILD_NUMBER}.ipa"
+          cp -R "$RUNNER_TEMP/ui-test-attachments" "$RUNNER_TEMP/inspection-report/ui-captures"
           python3 - <<'PY'
           import json, os
           from pathlib import Path

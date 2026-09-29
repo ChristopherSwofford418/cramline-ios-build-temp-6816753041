@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 90
     env:
       TEAM_ID: W356BF2Y83
-      MARKETING_VERSION: 1.0.1
+      MARKETING_VERSION: 1.0
       EXPECTED_APP_ID: com.clearpasstechnologies.cramline
       EXPECTED_APP_GROUP: group.com.clearpasstechnologies.cramline.shared
     steps:
@@ -191,7 +191,7 @@ jobs:
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$PLIST")" = "$EXPECTED_APP_ID"
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$PLIST")" = "$MARKETING_VERSION"
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$PLIST")" = "$BUILD_NUMBER"
-          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' "$PLIST")" = 'Cramline'
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' "$PLIST")" = 'Cramline Exam Sprint'
           EXTENSIONS=$(find "$APP/PlugIns" -maxdepth 1 -type d -name '*.appex' | wc -l | tr -d ' ')
           test "$EXTENSIONS" = '3'
           mkdir -p "$RUNNER_TEMP/inspection-report"
@@ -216,7 +216,7 @@ jobs:
           import json, os
           from pathlib import Path
           root=Path(os.environ['RUNNER_TEMP'])/'inspection-report'
-          meta={'bundleIdentifier':os.environ['EXPECTED_APP_ID'],'version':os.environ['MARKETING_VERSION'],'build':os.environ['BUILD_NUMBER'],'displayName':'Cramline','extensionCount':3,'appGroup':os.environ['EXPECTED_APP_GROUP'],'signed':True,'appleUploaded':False}
+          meta={'bundleIdentifier':os.environ['EXPECTED_APP_ID'],'version':os.environ['MARKETING_VERSION'],'build':os.environ['BUILD_NUMBER'],'displayName':'Cramline Exam Sprint','extensionCount':3,'appGroup':os.environ['EXPECTED_APP_GROUP'],'signed':True,'appleUploaded':False}
           (root/'build-metadata.json').write_text(json.dumps(meta,indent=2)+'\n')
           PY
 

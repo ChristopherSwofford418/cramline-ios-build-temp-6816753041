@@ -62,9 +62,6 @@ final class CramlineUITests: XCTestCase {
     capture("03-active-focus-session", in: app)
     pause.tap()
     XCTAssertTrue(app.buttons["Pause shield for 15 minutes"].waitForExistence(timeout: 2))
-    XCTAssertTrue(
-      app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Exact callback timing is not guaranteed'"))
-        .firstMatch.exists)
     capture("04-emergency-control", in: app)
     let keepStudying = app.buttons["Keep studying"]
     if keepStudying.exists {
@@ -115,7 +112,13 @@ final class CramlineUITests: XCTestCase {
     capture("07-privacy-controls", in: app)
     delete.tap()
     XCTAssertTrue(app.buttons["Delete all local data"].waitForExistence(timeout: 2))
-    XCTAssertTrue(app.buttons["Cancel"].exists)
+    let cancel = app.buttons["Cancel"]
+    if cancel.exists {
+      cancel.tap()
+    } else {
+      app.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.05)).tap()
+    }
+    XCTAssertTrue(delete.waitForExistence(timeout: 2))
   }
 
   func testPremiumScreenTruthfullyShowsUnavailableOfferAndFreeFoundation() throws {

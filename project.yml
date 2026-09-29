@@ -25,9 +25,9 @@ settings:
     CRAMLINE_SHIELD_CONFIGURATION_BUNDLE_ID: com.clearpasstechnologies.cramline.shieldconfiguration
     CRAMLINE_SHIELD_ACTION_BUNDLE_ID: com.clearpasstechnologies.cramline.shieldaction
     CRAMLINE_APP_GROUP: group.com.clearpasstechnologies.cramline.shared
-    CRAMLINE_SUPPORT_URL: ""
-    CRAMLINE_PRIVACY_URL: ""
-    CRAMLINE_TERMS_URL: ""
+    CRAMLINE_SUPPORT_URL: https://clearpasstechnologies.com/cramline/support
+    CRAMLINE_PRIVACY_URL: https://clearpasstechnologies.com/cramline/privacy
+    CRAMLINE_TERMS_URL: https://clearpasstechnologies.com/cramline/terms
     CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID: com.clearpasstechnologies.cramline.premium.monthly
     CRAMLINE_AI_BASE_URL: ""
     CRAMLINE_MIXPANEL_TOKEN: ""

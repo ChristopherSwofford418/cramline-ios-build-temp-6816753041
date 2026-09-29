@@ -122,10 +122,14 @@ jobs:
         run: |
           set -euo pipefail
           TOKEN_RESPONSE=$(curl --fail --silent --show-error \
+            --retry 5 --retry-delay 2 --retry-all-errors \
+            --connect-timeout 15 --max-time 120 \
             -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cramline-signing-release-v1")
           OIDC_TOKEN=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["value"])' <<< "$TOKEN_RESPONSE")
           curl --fail --silent --show-error \
+            --retry 12 --retry-delay 5 --retry-all-errors \
+            --connect-timeout 15 --max-time 300 \
             -H "Authorization: Bearer $OIDC_TOKEN" \
             "$SIGNING_BROKER_URL/signing-bundle" \
             -o "$RUNNER_TEMP/signing-bundle.json"

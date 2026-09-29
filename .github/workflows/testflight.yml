@@ -1,0 +1,93 @@
+name: TestFlight
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: App build number
+        required: true
+        default: "1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: testflight-production
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      APPLE_TEAM_ID: W356BF2Y83
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Install App Store Connect key
+        env:
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$ASC_KEY_ID"
+          test -n "$ASC_ISSUER_ID"
+          test -n "$ASC_PRIVATE_KEY"
+          install -d -m 700 "$HOME/.appstoreconnect/private_keys"
+          printf '%s' "$ASC_PRIVATE_KEY" > "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          chmod 600 "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+
+      - name: Validate source
+        run: |
+          set -euo pipefail
+          scripts/privacy-lint.sh
+          swift test --package-path Packages/CramlineCore
+
+      - name: Generate project and resolve packages
+        run: |
+          set -euo pipefail
+          scripts/generate-xcode-project.sh
+          xcodebuild -resolvePackageDependencies \
+            -project ios/Cramline.xcodeproj \
+            -scheme Cramline
+
+      - name: Archive signed build
+        run: |
+          set -euo pipefail
+          KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          xcodebuild archive \
+            -project ios/Cramline.xcodeproj \
+            -scheme Cramline \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/BlockYourPhoneToStudy.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic \
+            CURRENT_PROJECT_VERSION='${{ inputs.build_number }}' \
+            MARKETING_VERSION=1.0 \
+            CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS=NO
+
+      - name: Export and upload to App Store Connect
+        run: |
+          set -euo pipefail
+          KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/BlockYourPhoneToStudy.xcarchive" \
+            -exportPath "$RUNNER_TEMP/testflight-export" \
+            -exportOptionsPlist Config/TestFlightExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Remove App Store Connect key
+        if: always()
+        run: rm -f "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"

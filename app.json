@@ -1,0 +1,60 @@
+{
+  "expo": {
+    "name": "Cramline Exam Sprint",
+    "slug": "block-your-phone-to-study",
+    "owner": "cswofford",
+    "version": "1.0",
+    "icon": "./ios/Cramline/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+    "ios": {
+      "bundleIdentifier": "com.clearpasstechnologies.cramline",
+      "buildNumber": "3",
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1b504140-7c5f-4384-9612-d1b8c6be5666",
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "CramlineDeviceActivityMonitor",
+                  "bundleIdentifier": "com.clearpasstechnologies.cramline.deviceactivity",
+                  "entitlements": {
+                    "com.apple.developer.family-controls": true,
+                    "com.apple.security.application-groups": [
+                      "group.com.clearpasstechnologies.cramline.shared"
+                    ]
+                  }
+                },
+                {
+                  "targetName": "CramlineShieldConfiguration",
+                  "bundleIdentifier": "com.clearpasstechnologies.cramline.shieldconfiguration",
+                  "entitlements": {
+                    "com.apple.developer.family-controls": true,
+                    "com.apple.security.application-groups": [
+                      "group.com.clearpasstechnologies.cramline.shared"
+                    ]
+                  }
+                },
+                {
+                  "targetName": "CramlineShieldAction",
+                  "bundleIdentifier": "com.clearpasstechnologies.cramline.shieldaction",
+                  "entitlements": {
+                    "com.apple.developer.family-controls": true,
+                    "com.apple.security.application-groups": [
+                      "group.com.clearpasstechnologies.cramline.shared"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

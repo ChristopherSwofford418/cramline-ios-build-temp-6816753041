@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-09-29T01:48:43Z",
+  "appStore": {
+    "appId": "6816753041",
+    "currentRecordName": "Block Your Phone to Study",
+    "currentVersion": "1.0",
+    "currentVersionState": "PREPARE_FOR_SUBMISSION",
+    "bundleId": "com.clearpasstechnologies.cramline",
+    "appleMutationPerformed": false,
+    "paidBuildPerformed": false,
+    "buildUploaded": false,
+    "submitted": false
+  },
+  "sourceCandidate": {
+    "displayName": "Cramline Exam Sprint",
+    "displayNameCharacters": 20,
+    "subtitle": "Study Focus & App Shield",
+    "subtitleCharacters": 24,
+    "version": "1.0",
+    "buildNumber": "3",
+    "primaryCategory": "Productivity",
+    "secondaryCategory": "Education",
+    "bundleIdentifiers": {
+      "host": "com.clearpasstechnologies.cramline",
+      "deviceActivity": "com.clearpasstechnologies.cramline.deviceactivity",
+      "shieldConfiguration": "com.clearpasstechnologies.cramline.shieldconfiguration",
+      "shieldAction": "com.clearpasstechnologies.cramline.shieldaction"
+    },
+    "appGroup": "group.com.clearpasstechnologies.cramline.shared",
+    "productIdentifiers": [
+      "com.clearpasstechnologies.cramline.premium.monthly"
+    ]
+  },
+  "urls": {
+    "support": null,
+    "privacyPolicy": null,
+    "terms": null,
+    "aiService": null,
+    "manageSubscriptions": "https://apps.apple.com/account/subscriptions"
+  },
+  "screenshots": {
+    "existingCompleteAppStoreSet": false,
+    "existingAssetsRetained": true,
+    "createdFromRunningApp": 0,
+    "uploaded": false,
+    "captureRequiredOnSignedPhysicalBuild": true
+  },
+  "readiness": {
+    "sourceConfigurationSynchronized": true,
+    "usNameScreenCompleted": true,
+    "nameAvailabilityReservedOrCleared": false,
+    "productionLegalUrlsPublished": false,
+    "storeMetadataComplete": false,
+    "ageRatingAndContentRightsComplete": false,
+    "storeKitProductConfiguredAndTested": false,
+    "aiServiceApprovedAndConfigured": false,
+    "exactArchivePrivacyAuditComplete": false,
+    "physicalDeviceScreenTimeMatrixComplete": false,
+    "nativeArchiveValidationComplete": false,
+    "releaseReady": false
+  }
+}

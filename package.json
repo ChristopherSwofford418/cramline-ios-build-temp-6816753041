@@ -1,0 +1,8 @@
+{
+  "name": "block-your-phone-to-study-native-ios",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

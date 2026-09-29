@@ -1,0 +1,1115 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02815CF0D2E29380371B2DD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ECEBADA66F9E17B13BA1B6C /* Assets.xcassets */; };
+		06B62234D3ED4B2D54AE34F2 /* CramlineCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1D5944F6E81FEC0BF0FE18BA /* CramlineCore */; };
+		197E99EE71B900C77604ACAC /* CramlineCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B3D48DCA17E979C51C57400 /* CramlineCore */; };
+		1F2149224E88E85E2497C8FE /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB828ED49739274D3B2DAC /* PremiumView.swift */; };
+		20DA6D45230D95FA3F84D70F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = BFD39C22D9B139DF4A4B7BF5 /* FirebaseCrashlytics */; };
+		250E3545D52FC718A2AAB96E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F69BA53CFFD55DC5E8ABC5 /* HomeView.swift */; };
+		2E2F71A2D1C120C2E73D0430 /* SharedScreenTimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */; };
+		31E2637B127CB1E062C01059 /* LocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212BDA66693CC41638A16B0 /* LocalRepository.swift */; };
+		324164B214AD2BA26E2D39C8 /* TelemetryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910B675981E77BEAB1B4DCD0 /* TelemetryController.swift */; };
+		34857674F76E7781E48545E0 /* CramlineDeviceActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AD80B6D546BD1602407C3C58 /* CramlineDeviceActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		37BF94F231CEDC8675D4088B /* CramlineShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 92EA0330C611F56A072579ED /* CramlineShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3F98D051E98129AE4D7646E7 /* AIPlannerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F847F2F664E74B9118F174 /* AIPlannerClient.swift */; };
+		420B7DCE8D40A4B25F1FE908 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28198844BB64AF5DE0B7522 /* ShieldConfigurationExtension.swift */; };
+		4A7F80FDCD716ACEC47A61AD /* SharedIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */; };
+		50786D953C95FEDDC6432A0F /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FA5C00DA2B0FED69603B0 /* PurchaseController.swift */; };
+		5D37308A7B2C4F7EB1BE7022 /* SharedIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */; };
+		5D5AB9B9395C1661C2AA4392 /* CramlineShieldConfiguration.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9AD42AD4DF71518362ECA84D /* CramlineShieldConfiguration.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7500C882B8D902EE88E21436 /* SharedScreenTimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */; };
+		8411424910C960DF8C6AC40C /* CramlineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89CAE9D80B636E14D9B6BBE /* CramlineUITests.swift */; };
+		84162FD41C522F68D6CEFA5D /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 358A32AD20171B340F1CE735 /* FirebaseAnalyticsCore */; };
+		85C39DA6D328D21A49C29F3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D221DF8103E60D4607F6EE52 /* Localizable.strings */; };
+		8FE75A3394ABB88E822C9F12 /* SharedIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */; };
+		921958FAF974579BA76A532B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404495F3A60B39D580BD922E /* AppModel.swift */; };
+		9580CF42826887F2EF615612 /* CramlineCore in Frameworks */ = {isa = PBXBuildFile; productRef = C6C01B35D853E00CCC7D17C2 /* CramlineCore */; };
+		A64F64FCC34575EEDCD259B0 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FAEF9B30ACC2279F453901 /* AppEnvironment.swift */; };
+		A674BA0728D0B14D03DA06D3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BEEDF384CC48C9218B0D26 /* OnboardingView.swift */; };
+		A8E0724141F4059CD10E4687 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9EDE8CD01ABEA7DDD17483 /* DeviceActivityMonitorExtension.swift */; };
+		B5F3F072EE97349DFD2C7B74 /* SharedScreenTimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */; };
+		BB1A09AF7DD4EDD583514F31 /* ScreenTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3CDB45EE464ADAC4926EBB /* ScreenTimeCoordinator.swift */; };
+		BB2C7817A6587F230DE7B371 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68401AF96A908829B5214968 /* PlannerView.swift */; };
+		BFF560DB41A8C11FB36D97C6 /* SharedIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */; };
+		CABFDA0653B00726BC04CF69 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B750FD5F70926A31C94DE5 /* PrivacyView.swift */; };
+		D891FBA1C02A6DCC308F2E77 /* CramlineCore in Frameworks */ = {isa = PBXBuildFile; productRef = 12656575D969299A0F7CDBFF /* CramlineCore */; };
+		DE075835C8CB9F53AB80B4DD /* ShieldActionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFED50AD8300DEBAF59139 /* ShieldActionExtension.swift */; };
+		E12C552AEEBE2806FA799474 /* SharedScreenTimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */; };
+		EBDE6C712EE9C76318A3DEC6 /* CramlineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807714AF386CC7F6DDA4109 /* CramlineApp.swift */; };
+		EC97E00FD1F81A8A886C7FD1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FA051BBFE3DB0DC26B4E1781 /* PrivacyInfo.xcprivacy */; };
+		F0626517AD31F75DEF099967 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D9E46FE4CCC1F584AAFA207 /* Mixpanel */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		56C628E8EF83A27EB6D1CE27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC7737B422CB0ECA0B0E4CA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B68FED7C5EAE11C52F649D02;
+			remoteInfo = CramlineDeviceActivityMonitor;
+		};
+		E0680E3BAC63D5EE3E7BF82F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC7737B422CB0ECA0B0E4CA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABA78EF993E91ECD8C1FAFF8;
+			remoteInfo = CramlineShieldConfiguration;
+		};
+		F0D5E0723B83E56D45112CE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC7737B422CB0ECA0B0E4CA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A8FBE69418813EF5F45983D;
+			remoteInfo = CramlineShieldAction;
+		};
+		FD37F0535C8EC950FF8C9E94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC7737B422CB0ECA0B0E4CA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F74B839B975BB378B4704D81;
+			remoteInfo = Cramline;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		34634B04F8882C976F6FF3EF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				34857674F76E7781E48545E0 /* CramlineDeviceActivityMonitor.appex in Embed Foundation Extensions */,
+				5D5AB9B9395C1661C2AA4392 /* CramlineShieldConfiguration.appex in Embed Foundation Extensions */,
+				37BF94F231CEDC8675D4088B /* CramlineShieldAction.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		06F69BA53CFFD55DC5E8ABC5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		077BEB678B785814E2F3215B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FA96B823B977B27E268FC09 /* DeviceActivityMonitor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeviceActivityMonitor.entitlements; sourceTree = "<group>"; };
+		10112199A20ABF8F688A6493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		16F847F2F664E74B9118F174 /* AIPlannerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlannerClient.swift; sourceTree = "<group>"; };
+		2A9EDE8CD01ABEA7DDD17483 /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		2AA637B18917ADB8EBCC4A2C /* CramlineUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CramlineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		404495F3A60B39D580BD922E /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		42FAEF9B30ACC2279F453901 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		59EB828ED49739274D3B2DAC /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
+		66CFED50AD8300DEBAF59139 /* ShieldActionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldActionExtension.swift; sourceTree = "<group>"; };
+		670A1D458CB1CE88FD41A446 /* Cramline.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cramline.entitlements; sourceTree = "<group>"; };
+		68401AF96A908829B5214968 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
+		6C3CDB45EE464ADAC4926EBB /* ScreenTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeCoordinator.swift; sourceTree = "<group>"; };
+		6ECEBADA66F9E17B13BA1B6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6EF8D5D029C40609038180C0 /* ShieldAction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldAction.entitlements; sourceTree = "<group>"; };
+		71BEEDF384CC48C9218B0D26 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedScreenTimeState.swift; sourceTree = "<group>"; };
+		8807714AF386CC7F6DDA4109 /* CramlineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CramlineApp.swift; sourceTree = "<group>"; };
+		8C3A545A12D74FEF105BA12A /* Cramline.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Cramline.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		910B675981E77BEAB1B4DCD0 /* TelemetryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryController.swift; sourceTree = "<group>"; };
+		92EA0330C611F56A072579ED /* CramlineShieldAction.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CramlineShieldAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AD42AD4DF71518362ECA84D /* CramlineShieldConfiguration.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CramlineShieldConfiguration.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD80B6D546BD1602407C3C58 /* CramlineDeviceActivityMonitor.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CramlineDeviceActivityMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0B750FD5F70926A31C94DE5 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		C1E42C0A7C628CC15D7B94AA /* ShieldConfiguration.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfiguration.entitlements; sourceTree = "<group>"; };
+		C89CAE9D80B636E14D9B6BBE /* CramlineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CramlineUITests.swift; sourceTree = "<group>"; };
+		D212BDA66693CC41638A16B0 /* LocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepository.swift; sourceTree = "<group>"; };
+		D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedIdentifiers.swift; sourceTree = "<group>"; };
+		DB4FA5C00DA2B0FED69603B0 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
+		DCD9EC9699FF1A374804008C /* CramlineCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CramlineCore; path = ../Packages/CramlineCore; sourceTree = SOURCE_ROOT; };
+		DD7AD5282C7DC01113FCE2E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EFB74E5FC93BFFFE930CC603 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F28198844BB64AF5DE0B7522 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
+		F9777B4C927406758C865F35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FA051BBFE3DB0DC26B4E1781 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65273E0F9D8D2EA2830A12C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9580CF42826887F2EF615612 /* CramlineCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B710025883CFFFCC9E9C99C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06B62234D3ED4B2D54AE34F2 /* CramlineCore in Frameworks */,
+				84162FD41C522F68D6CEFA5D /* FirebaseAnalyticsCore in Frameworks */,
+				20DA6D45230D95FA3F84D70F /* FirebaseCrashlytics in Frameworks */,
+				F0626517AD31F75DEF099967 /* Mixpanel in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2884BB11EC892AD6EEE6A2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D891FBA1C02A6DCC308F2E77 /* CramlineCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7ACFF6D3730F144E1B582D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				197E99EE71B900C77604ACAC /* CramlineCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16139D81B26E0F9A08AA2B14 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D476F60D40D91F8A45BA6FA5 /* SharedIdentifiers.swift */,
+				80DB1A287537ECEEAA1D8E4D /* SharedScreenTimeState.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		170449F60E05A9FE2A8E4E9F /* ShieldConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				DD7AD5282C7DC01113FCE2E3 /* Info.plist */,
+				C1E42C0A7C628CC15D7B94AA /* ShieldConfiguration.entitlements */,
+				F28198844BB64AF5DE0B7522 /* ShieldConfigurationExtension.swift */,
+			);
+			path = ShieldConfiguration;
+			sourceTree = "<group>";
+		};
+		1A06F70906EA3F7A016333DB /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DCD9EC9699FF1A374804008C /* CramlineCore */,
+			);
+			name = Packages;
+			path = ../Packages;
+			sourceTree = "<group>";
+		};
+		270BA0E9B88F09A3B8703626 = {
+			isa = PBXGroup;
+			children = (
+				4D569FC7A717A0B0DA260C15 /* ios */,
+				1A06F70906EA3F7A016333DB /* Packages */,
+				6D13D34CA3310EDEFEB44EEA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BBD3897ACEEC50F504B6D3B /* CramlineUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C89CAE9D80B636E14D9B6BBE /* CramlineUITests.swift */,
+			);
+			path = CramlineUITests;
+			sourceTree = "<group>";
+		};
+		33ADB14D504374B8D4D146A9 /* ShieldAction */ = {
+			isa = PBXGroup;
+			children = (
+				EFB74E5FC93BFFFE930CC603 /* Info.plist */,
+				6EF8D5D029C40609038180C0 /* ShieldAction.entitlements */,
+				66CFED50AD8300DEBAF59139 /* ShieldActionExtension.swift */,
+			);
+			path = ShieldAction;
+			sourceTree = "<group>";
+		};
+		4D569FC7A717A0B0DA260C15 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				7B77B323D00DFBF78D36B276 /* Cramline */,
+				A043D1E3A8CD1C5053A4B6E6 /* Extensions */,
+				16139D81B26E0F9A08AA2B14 /* Shared */,
+				C4A50FF579019DC3E9820546 /* Tests */,
+			);
+			name = ios;
+			path = .;
+			sourceTree = "<group>";
+		};
+		6D13D34CA3310EDEFEB44EEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C3A545A12D74FEF105BA12A /* Cramline.app */,
+				AD80B6D546BD1602407C3C58 /* CramlineDeviceActivityMonitor.appex */,
+				92EA0330C611F56A072579ED /* CramlineShieldAction.appex */,
+				9AD42AD4DF71518362ECA84D /* CramlineShieldConfiguration.appex */,
+				2AA637B18917ADB8EBCC4A2C /* CramlineUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B77B323D00DFBF78D36B276 /* Cramline */ = {
+			isa = PBXGroup;
+			children = (
+				42FAEF9B30ACC2279F453901 /* AppEnvironment.swift */,
+				404495F3A60B39D580BD922E /* AppModel.swift */,
+				670A1D458CB1CE88FD41A446 /* Cramline.entitlements */,
+				8807714AF386CC7F6DDA4109 /* CramlineApp.swift */,
+				10112199A20ABF8F688A6493 /* Info.plist */,
+				C7AE69424ED03418E5C5C534 /* Resources */,
+				7F6A1938CC670F256A7939BD /* Services */,
+				C3879FEF3ABCFA9EE9E2791C /* Views */,
+			);
+			path = Cramline;
+			sourceTree = "<group>";
+		};
+		7F6A1938CC670F256A7939BD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				16F847F2F664E74B9118F174 /* AIPlannerClient.swift */,
+				D212BDA66693CC41638A16B0 /* LocalRepository.swift */,
+				DB4FA5C00DA2B0FED69603B0 /* PurchaseController.swift */,
+				6C3CDB45EE464ADAC4926EBB /* ScreenTimeCoordinator.swift */,
+				910B675981E77BEAB1B4DCD0 /* TelemetryController.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9093588BFD25A20BEB123868 /* DeviceActivityMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				0FA96B823B977B27E268FC09 /* DeviceActivityMonitor.entitlements */,
+				2A9EDE8CD01ABEA7DDD17483 /* DeviceActivityMonitorExtension.swift */,
+				F9777B4C927406758C865F35 /* Info.plist */,
+			);
+			path = DeviceActivityMonitor;
+			sourceTree = "<group>";
+		};
+		A043D1E3A8CD1C5053A4B6E6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9093588BFD25A20BEB123868 /* DeviceActivityMonitor */,
+				33ADB14D504374B8D4D146A9 /* ShieldAction */,
+				170449F60E05A9FE2A8E4E9F /* ShieldConfiguration */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C3879FEF3ABCFA9EE9E2791C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				06F69BA53CFFD55DC5E8ABC5 /* HomeView.swift */,
+				71BEEDF384CC48C9218B0D26 /* OnboardingView.swift */,
+				68401AF96A908829B5214968 /* PlannerView.swift */,
+				59EB828ED49739274D3B2DAC /* PremiumView.swift */,
+				C0B750FD5F70926A31C94DE5 /* PrivacyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C4A50FF579019DC3E9820546 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD3897ACEEC50F504B6D3B /* CramlineUITests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C7AE69424ED03418E5C5C534 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6ECEBADA66F9E17B13BA1B6C /* Assets.xcassets */,
+				FA051BBFE3DB0DC26B4E1781 /* PrivacyInfo.xcprivacy */,
+				D221DF8103E60D4607F6EE52 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C8A66FF17D5FC42AAC76189 /* CramlineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4F19B0DDE9DF6ABAF38F4A7 /* Build configuration list for PBXNativeTarget "CramlineUITests" */;
+			buildPhases = (
+				AF34B41DF13F2E776DCF77C5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				304CF163815BA482BAC0FD41 /* PBXTargetDependency */,
+			);
+			name = CramlineUITests;
+			packageProductDependencies = (
+			);
+			productName = CramlineUITests;
+			productReference = 2AA637B18917ADB8EBCC4A2C /* CramlineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		7A8FBE69418813EF5F45983D /* CramlineShieldAction */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5D76918A9F181569C78E754 /* Build configuration list for PBXNativeTarget "CramlineShieldAction" */;
+			buildPhases = (
+				F7F20E7ECFCFB2BFFA44A849 /* Sources */,
+				D7ACFF6D3730F144E1B582D7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CramlineShieldAction;
+			packageProductDependencies = (
+				2B3D48DCA17E979C51C57400 /* CramlineCore */,
+			);
+			productName = CramlineShieldAction;
+			productReference = 92EA0330C611F56A072579ED /* CramlineShieldAction.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		ABA78EF993E91ECD8C1FAFF8 /* CramlineShieldConfiguration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA0AE97B0513A84DCBA103E /* Build configuration list for PBXNativeTarget "CramlineShieldConfiguration" */;
+			buildPhases = (
+				59F89F3D6B75FF6853FD952C /* Sources */,
+				B2884BB11EC892AD6EEE6A2A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CramlineShieldConfiguration;
+			packageProductDependencies = (
+				12656575D969299A0F7CDBFF /* CramlineCore */,
+			);
+			productName = CramlineShieldConfiguration;
+			productReference = 9AD42AD4DF71518362ECA84D /* CramlineShieldConfiguration.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B68FED7C5EAE11C52F649D02 /* CramlineDeviceActivityMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A2131E7AC521A97C7EE8881 /* Build configuration list for PBXNativeTarget "CramlineDeviceActivityMonitor" */;
+			buildPhases = (
+				F8AB950F57B7F021B8729E0F /* Sources */,
+				65273E0F9D8D2EA2830A12C6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CramlineDeviceActivityMonitor;
+			packageProductDependencies = (
+				C6C01B35D853E00CCC7D17C2 /* CramlineCore */,
+			);
+			productName = CramlineDeviceActivityMonitor;
+			productReference = AD80B6D546BD1602407C3C58 /* CramlineDeviceActivityMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		F74B839B975BB378B4704D81 /* Cramline */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AADA21FDC6DF3B891A53ACBC /* Build configuration list for PBXNativeTarget "Cramline" */;
+			buildPhases = (
+				C99DD0D137634D2FAC54F9E7 /* Verify privacy-sensitive source */,
+				2798EF85386596B9CABFE0FC /* Sources */,
+				05B5478592DC430526899171 /* Upload Crashlytics symbols when configured */,
+				0C5C8EFA442C612520BA1A4A /* Resources */,
+				6B710025883CFFFCC9E9C99C /* Frameworks */,
+				34634B04F8882C976F6FF3EF /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FA6183DA6CD031D301D3577 /* PBXTargetDependency */,
+				B1C1353CCF9872128FBD3B9F /* PBXTargetDependency */,
+				7E655D2579AA4D66049E19C2 /* PBXTargetDependency */,
+			);
+			name = Cramline;
+			packageProductDependencies = (
+				1D5944F6E81FEC0BF0FE18BA /* CramlineCore */,
+				358A32AD20171B340F1CE735 /* FirebaseAnalyticsCore */,
+				BFD39C22D9B139DF4A4B7BF5 /* FirebaseCrashlytics */,
+				2D9E46FE4CCC1F584AAFA207 /* Mixpanel */,
+			);
+			productName = Cramline;
+			productReference = 8C3A545A12D74FEF105BA12A /* Cramline.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC7737B422CB0ECA0B0E4CA0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2C8A66FF17D5FC42AAC76189 = {
+						DevelopmentTeam = W356BF2Y83;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F74B839B975BB378B4704D81;
+					};
+					7A8FBE69418813EF5F45983D = {
+						DevelopmentTeam = W356BF2Y83;
+						ProvisioningStyle = Automatic;
+					};
+					ABA78EF993E91ECD8C1FAFF8 = {
+						DevelopmentTeam = W356BF2Y83;
+						ProvisioningStyle = Automatic;
+					};
+					B68FED7C5EAE11C52F649D02 = {
+						DevelopmentTeam = W356BF2Y83;
+						ProvisioningStyle = Automatic;
+					};
+					F74B839B975BB378B4704D81 = {
+						DevelopmentTeam = W356BF2Y83;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 9B7AE734DCB008E67A314CB4 /* Build configuration list for PBXProject "Cramline" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 270BA0E9B88F09A3B8703626;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				39AFBA2049AF334B76528B00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FD2AF9AED1008B9B0863C012 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				9BA935DEF8D66E4D0725E17F /* XCLocalSwiftPackageReference "Packages/CramlineCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6D13D34CA3310EDEFEB44EEA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F74B839B975BB378B4704D81 /* Cramline */,
+				B68FED7C5EAE11C52F649D02 /* CramlineDeviceActivityMonitor */,
+				ABA78EF993E91ECD8C1FAFF8 /* CramlineShieldConfiguration */,
+				7A8FBE69418813EF5F45983D /* CramlineShieldAction */,
+				2C8A66FF17D5FC42AAC76189 /* CramlineUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0C5C8EFA442C612520BA1A4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02815CF0D2E29380371B2DD5 /* Assets.xcassets in Resources */,
+				85C39DA6D328D21A49C29F3F /* Localizable.strings in Resources */,
+				EC97E00FD1F81A8A886C7FD1 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		05B5478592DC430526899171 /* Upload Crashlytics symbols when configured */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)",
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Resources/DWARF/$(TARGET_NAME)",
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Upload Crashlytics symbols when configured";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\" ] && [ -f \"${PROJECT_DIR}/Cramline/Resources/GoogleService-Info.plist\" ]; then\n  \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nelse\n  echo \"Crashlytics upload skipped: SDK script or GoogleService-Info.plist not configured.\"\nfi\n";
+		};
+		C99DD0D137634D2FAC54F9E7 /* Verify privacy-sensitive source */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Verify privacy-sensitive source";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/../scripts/privacy-lint.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2798EF85386596B9CABFE0FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F98D051E98129AE4D7646E7 /* AIPlannerClient.swift in Sources */,
+				A64F64FCC34575EEDCD259B0 /* AppEnvironment.swift in Sources */,
+				921958FAF974579BA76A532B /* AppModel.swift in Sources */,
+				EBDE6C712EE9C76318A3DEC6 /* CramlineApp.swift in Sources */,
+				250E3545D52FC718A2AAB96E /* HomeView.swift in Sources */,
+				31E2637B127CB1E062C01059 /* LocalRepository.swift in Sources */,
+				A674BA0728D0B14D03DA06D3 /* OnboardingView.swift in Sources */,
+				BB2C7817A6587F230DE7B371 /* PlannerView.swift in Sources */,
+				1F2149224E88E85E2497C8FE /* PremiumView.swift in Sources */,
+				CABFDA0653B00726BC04CF69 /* PrivacyView.swift in Sources */,
+				50786D953C95FEDDC6432A0F /* PurchaseController.swift in Sources */,
+				BB1A09AF7DD4EDD583514F31 /* ScreenTimeCoordinator.swift in Sources */,
+				8FE75A3394ABB88E822C9F12 /* SharedIdentifiers.swift in Sources */,
+				2E2F71A2D1C120C2E73D0430 /* SharedScreenTimeState.swift in Sources */,
+				324164B214AD2BA26E2D39C8 /* TelemetryController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F89F3D6B75FF6853FD952C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFF560DB41A8C11FB36D97C6 /* SharedIdentifiers.swift in Sources */,
+				B5F3F072EE97349DFD2C7B74 /* SharedScreenTimeState.swift in Sources */,
+				420B7DCE8D40A4B25F1FE908 /* ShieldConfigurationExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF34B41DF13F2E776DCF77C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8411424910C960DF8C6AC40C /* CramlineUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7F20E7ECFCFB2BFFA44A849 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D37308A7B2C4F7EB1BE7022 /* SharedIdentifiers.swift in Sources */,
+				E12C552AEEBE2806FA799474 /* SharedScreenTimeState.swift in Sources */,
+				DE075835C8CB9F53AB80B4DD /* ShieldActionExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8AB950F57B7F021B8729E0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8E0724141F4059CD10E4687 /* DeviceActivityMonitorExtension.swift in Sources */,
+				4A7F80FDCD716ACEC47A61AD /* SharedIdentifiers.swift in Sources */,
+				7500C882B8D902EE88E21436 /* SharedScreenTimeState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		304CF163815BA482BAC0FD41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F74B839B975BB378B4704D81 /* Cramline */;
+			targetProxy = FD37F0535C8EC950FF8C9E94 /* PBXContainerItemProxy */;
+		};
+		4FA6183DA6CD031D301D3577 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B68FED7C5EAE11C52F649D02 /* CramlineDeviceActivityMonitor */;
+			targetProxy = 56C628E8EF83A27EB6D1CE27 /* PBXContainerItemProxy */;
+		};
+		7E655D2579AA4D66049E19C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A8FBE69418813EF5F45983D /* CramlineShieldAction */;
+			targetProxy = F0D5E0723B83E56D45112CE7 /* PBXContainerItemProxy */;
+		};
+		B1C1353CCF9872128FBD3B9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABA78EF993E91ECD8C1FAFF8 /* CramlineShieldConfiguration */;
+			targetProxy = E0680E3BAC63D5EE3E7BF82F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D221DF8103E60D4607F6EE52 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				077BEB678B785814E2F3215B /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		033FFF615D5CBBAB2A51BCC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CRAMLINE_AI_BASE_URL = "";
+				CRAMLINE_APP_BUNDLE_ID = com.clearpasstechnologies.cramline;
+				CRAMLINE_APP_GROUP = group.com.clearpasstechnologies.cramline.shared;
+				CRAMLINE_APP_NAME = "Cramline Exam Sprint";
+				CRAMLINE_APP_SUBTITLE = "Study Focus & App Shield";
+				CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS = NO;
+				CRAMLINE_MIXPANEL_TOKEN = "";
+				CRAMLINE_MONITOR_BUNDLE_ID = com.clearpasstechnologies.cramline.deviceactivity;
+				CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID = com.clearpasstechnologies.cramline.premium.monthly;
+				CRAMLINE_PRIVACY_URL = "";
+				CRAMLINE_SHIELD_ACTION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldaction;
+				CRAMLINE_SHIELD_CONFIGURATION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldconfiguration;
+				CRAMLINE_SUPPORT_URL = "";
+				CRAMLINE_TERMS_URL = "";
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = W356BF2Y83;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1D328507465A87B804434FEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Cramline/Cramline.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Cramline/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(CRAMLINE_APP_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline;
+				PRODUCT_NAME = "$(CRAMLINE_APP_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		24AFD66095FE724623A40B4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cramline;
+			};
+			name = Debug;
+		};
+		4258D5AFB0AA012F87E62956 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/DeviceActivityMonitor/DeviceActivityMonitor.entitlements;
+				INFOPLIST_FILE = Extensions/DeviceActivityMonitor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.deviceactivity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5062A4AD2974210E14194C15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cramline;
+			};
+			name = Release;
+		};
+		5406447A40CDC8A948E6E55D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/ShieldConfiguration/ShieldConfiguration.entitlements;
+				INFOPLIST_FILE = Extensions/ShieldConfiguration/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.shieldconfiguration;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8C4CD2CB434E2215F7DC3009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/ShieldConfiguration/ShieldConfiguration.entitlements;
+				INFOPLIST_FILE = Extensions/ShieldConfiguration/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.shieldconfiguration;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1858BEB7F9E5880E635D3E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CRAMLINE_AI_BASE_URL = "";
+				CRAMLINE_APP_BUNDLE_ID = com.clearpasstechnologies.cramline;
+				CRAMLINE_APP_GROUP = group.com.clearpasstechnologies.cramline.shared;
+				CRAMLINE_APP_NAME = "Cramline Exam Sprint";
+				CRAMLINE_APP_SUBTITLE = "Study Focus & App Shield";
+				CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS = NO;
+				CRAMLINE_MIXPANEL_TOKEN = "";
+				CRAMLINE_MONITOR_BUNDLE_ID = com.clearpasstechnologies.cramline.deviceactivity;
+				CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID = com.clearpasstechnologies.cramline.premium.monthly;
+				CRAMLINE_PRIVACY_URL = "";
+				CRAMLINE_SHIELD_ACTION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldaction;
+				CRAMLINE_SHIELD_CONFIGURATION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldconfiguration;
+				CRAMLINE_SUPPORT_URL = "";
+				CRAMLINE_TERMS_URL = "";
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = W356BF2Y83;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A3055C9EA7FAD59BC94EB38B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/ShieldAction/ShieldAction.entitlements;
+				INFOPLIST_FILE = Extensions/ShieldAction/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.shieldaction;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BF978CB336D818E969F83672 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Cramline/Cramline.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Cramline/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(CRAMLINE_APP_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline;
+				PRODUCT_NAME = "$(CRAMLINE_APP_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D475C3057C75CB911DEE1922 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/DeviceActivityMonitor/DeviceActivityMonitor.entitlements;
+				INFOPLIST_FILE = Extensions/DeviceActivityMonitor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.deviceactivity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D87102EF86155D84B21AF87A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extensions/ShieldAction/ShieldAction.entitlements;
+				INFOPLIST_FILE = Extensions/ShieldAction/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline.shieldaction;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FA0AE97B0513A84DCBA103E /* Build configuration list for PBXNativeTarget "CramlineShieldConfiguration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C4CD2CB434E2215F7DC3009 /* Debug */,
+				5406447A40CDC8A948E6E55D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9A2131E7AC521A97C7EE8881 /* Build configuration list for PBXNativeTarget "CramlineDeviceActivityMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4258D5AFB0AA012F87E62956 /* Debug */,
+				D475C3057C75CB911DEE1922 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9B7AE734DCB008E67A314CB4 /* Build configuration list for PBXProject "Cramline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				033FFF615D5CBBAB2A51BCC6 /* Debug */,
+				A1858BEB7F9E5880E635D3E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AADA21FDC6DF3B891A53ACBC /* Build configuration list for PBXNativeTarget "Cramline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D328507465A87B804434FEE /* Debug */,
+				BF978CB336D818E969F83672 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D5D76918A9F181569C78E754 /* Build configuration list for PBXNativeTarget "CramlineShieldAction" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D87102EF86155D84B21AF87A /* Debug */,
+				A3055C9EA7FAD59BC94EB38B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E4F19B0DDE9DF6ABAF38F4A7 /* Build configuration list for PBXNativeTarget "CramlineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24AFD66095FE724623A40B4A /* Debug */,
+				5062A4AD2974210E14194C15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		9BA935DEF8D66E4D0725E17F /* XCLocalSwiftPackageReference "Packages/CramlineCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CramlineCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		39AFBA2049AF334B76528B00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 12.19.2;
+			};
+		};
+		FD2AF9AED1008B9B0863C012 /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12656575D969299A0F7CDBFF /* CramlineCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CramlineCore;
+		};
+		1D5944F6E81FEC0BF0FE18BA /* CramlineCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CramlineCore;
+		};
+		2B3D48DCA17E979C51C57400 /* CramlineCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CramlineCore;
+		};
+		2D9E46FE4CCC1F584AAFA207 /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD2AF9AED1008B9B0863C012 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
+		};
+		358A32AD20171B340F1CE735 /* FirebaseAnalyticsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39AFBA2049AF334B76528B00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsCore;
+		};
+		BFD39C22D9B139DF4A4B7BF5 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39AFBA2049AF334B76528B00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		C6C01B35D853E00CCC7D17C2 /* CramlineCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CramlineCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = BC7737B422CB0ECA0B0E4CA0 /* Project object */;
+}

@@ -1,0 +1,6 @@
+"app.name" = "Cramline Exam Sprint";
+"app.subtitle" = "Study Focus & App Shield";
+"app.promise" = "Put selected social and video apps behind a system shield during study sessions you choose.";
+"screen_time.authorization_needed" = "Cramline Exam Sprint can’t apply your study shield until Screen Time permission is enabled again.";
+"emergency.pause" = "Emergency pause — 15 minutes";
+"session.end_today" = "End today’s session";

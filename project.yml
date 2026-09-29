@@ -1,0 +1,260 @@
+name: Cramline
+options:
+  bundleIdPrefix: com.clearpasstechnologies
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "16.0"
+configs:
+  Debug: debug
+  Release: release
+packages:
+  CramlineCore:
+    path: Packages/CramlineCore
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    exactVersion: 12.19.2
+  Mixpanel:
+    url: https://github.com/mixpanel/mixpanel-swift.git
+    exactVersion: 6.7.0
+settings:
+  base:
+    CRAMLINE_APP_NAME: Cramline Exam Sprint
+    CRAMLINE_APP_SUBTITLE: Study Focus & App Shield
+    CRAMLINE_APP_BUNDLE_ID: com.clearpasstechnologies.cramline
+    CRAMLINE_MONITOR_BUNDLE_ID: com.clearpasstechnologies.cramline.deviceactivity
+    CRAMLINE_SHIELD_CONFIGURATION_BUNDLE_ID: com.clearpasstechnologies.cramline.shieldconfiguration
+    CRAMLINE_SHIELD_ACTION_BUNDLE_ID: com.clearpasstechnologies.cramline.shieldaction
+    CRAMLINE_APP_GROUP: group.com.clearpasstechnologies.cramline.shared
+    CRAMLINE_SUPPORT_URL: ""
+    CRAMLINE_PRIVACY_URL: ""
+    CRAMLINE_TERMS_URL: ""
+    CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID: com.clearpasstechnologies.cramline.premium.monthly
+    CRAMLINE_AI_BASE_URL: ""
+    CRAMLINE_MIXPANEL_TOKEN: ""
+    CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS: NO
+    SWIFT_VERSION: 5.10
+    CURRENT_PROJECT_VERSION: 3
+    MARKETING_VERSION: 1.0
+    DEVELOPMENT_TEAM: W356BF2Y83
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    SUPPORTS_MACCATALYST: NO
+    TARGETED_DEVICE_FAMILY: "1,2"
+targets:
+  Cramline:
+    type: application
+    platform: iOS
+    sources:
+      - path: ios/Cramline
+      - path: ios/Shared
+    resources:
+      - path: ios/Cramline/Resources
+    info:
+      path: ios/Cramline/Info.plist
+      properties:
+        CFBundleDisplayName: $(CRAMLINE_APP_NAME)
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "3"
+        LSApplicationCategoryType: public.app-category.productivity
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        "UISupportedInterfaceOrientations~iphone":
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        "UISupportedInterfaceOrientations~ipad":
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        FIREBASE_ANALYTICS_COLLECTION_ENABLED: false
+        FirebaseCrashlyticsCollectionEnabled: false
+        FirebaseAppDelegateProxyEnabled: false
+        FirebaseAutomaticScreenReportingEnabled: false
+        GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED: false
+        GOOGLE_ANALYTICS_DEFAULT_ALLOW_ANALYTICS_STORAGE: false
+        GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_STORAGE: false
+        GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_USER_DATA: false
+        GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS: false
+        CRAMLINE_APP_NAME: $(CRAMLINE_APP_NAME)
+        CRAMLINE_APP_SUBTITLE: $(CRAMLINE_APP_SUBTITLE)
+        CRAMLINE_APP_GROUP: $(CRAMLINE_APP_GROUP)
+        CRAMLINE_SUPPORT_URL: $(CRAMLINE_SUPPORT_URL)
+        CRAMLINE_PRIVACY_URL: $(CRAMLINE_PRIVACY_URL)
+        CRAMLINE_TERMS_URL: $(CRAMLINE_TERMS_URL)
+        CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID: $(CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID)
+        CRAMLINE_AI_BASE_URL: $(CRAMLINE_AI_BASE_URL)
+        CRAMLINE_MIXPANEL_TOKEN: $(CRAMLINE_MIXPANEL_TOKEN)
+        CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS: $(CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS)
+    entitlements:
+      path: ios/Cramline/Cramline.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - $(CRAMLINE_APP_GROUP)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clearpasstechnologies.cramline
+        PRODUCT_NAME: $(CRAMLINE_APP_NAME)
+        INFOPLIST_KEY_CFBundleDisplayName: $(CRAMLINE_APP_NAME)
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    dependencies:
+      - package: CramlineCore
+      - package: Firebase
+        product: FirebaseAnalyticsCore
+      - package: Firebase
+        product: FirebaseCrashlytics
+      - package: Mixpanel
+        product: Mixpanel
+      - target: CramlineDeviceActivityMonitor
+        embed: true
+      - target: CramlineShieldConfiguration
+        embed: true
+      - target: CramlineShieldAction
+        embed: true
+    preBuildScripts:
+      - name: Verify privacy-sensitive source
+        script: "${PROJECT_DIR}/../scripts/privacy-lint.sh"
+        basedOnDependencyAnalysis: false
+    postCompileScripts:
+      - name: Upload Crashlytics symbols when configured
+        script: |
+          if [ -f "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run" ] && [ -f "${PROJECT_DIR}/Cramline/Resources/GoogleService-Info.plist" ]; then
+            "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+          else
+            echo "Crashlytics upload skipped: SDK script or GoogleService-Info.plist not configured."
+          fi
+        inputFiles:
+          - $(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)
+          - $(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Resources/DWARF/$(TARGET_NAME)
+          - $(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Info.plist
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist
+          - $(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)
+  CramlineDeviceActivityMonitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ios/Extensions/DeviceActivityMonitor
+      - path: ios/Shared
+    resources:
+      - path: ios/Extensions/PrivacyInfo.xcprivacy
+    info:
+      path: ios/Extensions/DeviceActivityMonitor/Info.plist
+      properties:
+        CFBundleDisplayName: Cramline Monitor
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "3"
+        CRAMLINE_APP_NAME: $(CRAMLINE_APP_NAME)
+        CRAMLINE_APP_GROUP: $(CRAMLINE_APP_GROUP)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).DeviceActivityMonitorExtension
+    entitlements:
+      path: ios/Extensions/DeviceActivityMonitor/DeviceActivityMonitor.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - $(CRAMLINE_APP_GROUP)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clearpasstechnologies.cramline.deviceactivity
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+    dependencies:
+      - package: CramlineCore
+  CramlineShieldConfiguration:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ios/Extensions/ShieldConfiguration
+      - path: ios/Shared
+    resources:
+      - path: ios/Extensions/PrivacyInfo.xcprivacy
+    info:
+      path: ios/Extensions/ShieldConfiguration/Info.plist
+      properties:
+        CFBundleDisplayName: Cramline Shield
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "3"
+        CRAMLINE_APP_NAME: $(CRAMLINE_APP_NAME)
+        CRAMLINE_APP_GROUP: $(CRAMLINE_APP_GROUP)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettingsUI.shield-configuration-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldConfigurationExtension
+    entitlements:
+      path: ios/Extensions/ShieldConfiguration/ShieldConfiguration.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - $(CRAMLINE_APP_GROUP)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clearpasstechnologies.cramline.shieldconfiguration
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+    dependencies:
+      - package: CramlineCore
+  CramlineShieldAction:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ios/Extensions/ShieldAction
+      - path: ios/Shared
+    resources:
+      - path: ios/Extensions/PrivacyInfo.xcprivacy
+    info:
+      path: ios/Extensions/ShieldAction/Info.plist
+      properties:
+        CFBundleDisplayName: Cramline Shield Actions
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "3"
+        CRAMLINE_APP_NAME: $(CRAMLINE_APP_NAME)
+        CRAMLINE_APP_GROUP: $(CRAMLINE_APP_GROUP)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettings.shield-action-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldActionExtension
+    entitlements:
+      path: ios/Extensions/ShieldAction/ShieldAction.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - $(CRAMLINE_APP_GROUP)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clearpasstechnologies.cramline.shieldaction
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+    dependencies:
+      - package: CramlineCore
+  CramlineUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: ios/Tests/CramlineUITests
+    dependencies:
+      - target: Cramline
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clearpasstechnologies.cramline.uitests
+        TEST_TARGET_NAME: Cramline
+schemes:
+  Cramline:
+    build:
+      targets:
+        Cramline: all
+        CramlineDeviceActivityMonitor: all
+        CramlineShieldConfiguration: all
+        CramlineShieldAction: all
+    test:
+      targets:
+        - CramlineUITests
+    run:
+      config: Debug
+    archive:
+      config: Release

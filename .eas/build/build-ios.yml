@@ -1,0 +1,22 @@
+build:
+  name: Build native iOS app for TestFlight
+  steps:
+    - eas/checkout
+    - eas/install_node_modules
+    - run:
+        name: Validate source and generate Xcode project
+        command: |
+          set -euo pipefail
+          scripts/release-config-lint.sh
+          scripts/privacy-lint.sh
+          swift test --package-path Packages/CramlineCore
+          brew install xcodegen
+          scripts/generate-xcode-project.sh
+    - eas/resolve_build_config
+    - eas/configure_ios_credentials
+    - eas/generate_gymfile_from_template:
+        inputs:
+          scheme: Cramline
+          credentials: ${ eas.job.secrets.buildCredentials }
+    - eas/run_fastlane
+    - eas/find_and_upload_build_artifacts

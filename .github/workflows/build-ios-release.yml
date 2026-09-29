@@ -1,0 +1,208 @@
+name: Build Cramline iOS Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: cramline-ios-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 90
+    env:
+      TEAM_ID: W356BF2Y83
+      MARKETING_VERSION: 1.0.1
+      EXPECTED_APP_ID: com.clearpasstechnologies.cramline
+      EXPECTED_APP_GROUP: group.com.clearpasstechnologies.cramline.shared
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: |
+          set -euo pipefail
+          xcodegen generate
+          xcodebuild -project Cramline.xcodeproj -scheme Cramline -showBuildSettings > "$RUNNER_TEMP/build-settings.txt"
+          grep -q 'PRODUCT_BUNDLE_IDENTIFIER = com.clearpasstechnologies.cramline' "$RUNNER_TEMP/build-settings.txt"
+
+      - name: Run native unit tests
+        run: |
+          set -euo pipefail
+          UDID=$(python3 - <<'PY'
+          import json, subprocess
+          data=json.loads(subprocess.check_output(['xcrun','simctl','list','devices','available','-j']))
+          candidates=[]
+          for runtime, devices in data.get('devices',{}).items():
+              if 'iOS' not in runtime:
+                  continue
+              for device in devices:
+                  if device.get('isAvailable') and device.get('name','').startswith('iPhone'):
+                      candidates.append((runtime, device['udid'], device['name']))
+          if not candidates:
+              raise SystemExit('No available iPhone simulator')
+          print(sorted(candidates)[-1][1])
+          PY
+          )
+          xcodebuild test \
+            -project Cramline.xcodeproj \
+            -scheme Cramline \
+            -destination "platform=iOS Simulator,id=$UDID" \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Install distribution signing inputs
+        env:
+          SIGNING_BROKER_URL: https://47821-ifd045shyvcu83qy18b5q-f777efa8.us1.manus.computer
+        run: |
+          set -euo pipefail
+          TOKEN_RESPONSE=$(curl --fail --silent --show-error \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cramline-signing-release-v1")
+          OIDC_TOKEN=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["value"])' <<< "$TOKEN_RESPONSE")
+          curl --fail --silent --show-error \
+            -H "Authorization: Bearer $OIDC_TOKEN" \
+            "$SIGNING_BROKER_URL/signing-bundle" \
+            -o "$RUNNER_TEMP/signing-bundle.json"
+          chmod 600 "$RUNNER_TEMP/signing-bundle.json"
+          python3 - <<'PY'
+          import base64, json, os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])
+          data=json.loads((root/'signing-bundle.json').read_text())
+          files={
+            'distribution.p12':'distributionP12Base64',
+            'host.mobileprovision':'hostProfileBase64',
+            'deviceactivity.mobileprovision':'deviceActivityProfileBase64',
+            'shieldconfiguration.mobileprovision':'shieldConfigProfileBase64',
+            'shieldaction.mobileprovision':'shieldActionProfileBase64',
+            f"AuthKey_{data['ascKeyId']}.p8":'ascPrivateKeyBase64',
+          }
+          for filename, key in files.items():
+            path=root/filename
+            path.write_bytes(base64.b64decode(data[key]))
+            path.chmod(0o600)
+          (root/'distribution-password').write_text(data['distributionPassword'])
+          (root/'distribution-password').chmod(0o600)
+          with open(os.environ['GITHUB_ENV'],'a') as out:
+            out.write(f"ASC_KEY_ID={data['ascKeyId']}\n")
+            out.write(f"ASC_ISSUER_ID={data['ascIssuerId']}\n")
+          print('OIDC-verified signing bundle received')
+          PY
+          DIST_P12_PASSWORD=$(cat "$RUNNER_TEMP/distribution-password")
+          echo "::add-mask::$DIST_P12_PASSWORD"
+          KEYCHAIN="$RUNNER_TEMP/cramline-signing.keychain-db"
+          KEYCHAIN_PASSWORD=$(openssl rand -hex 24)
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security list-keychains -d user -s "$KEYCHAIN" login.keychain-db
+          security import "$RUNNER_TEMP/distribution.p12" -k "$KEYCHAIN" -P "$DIST_P12_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles" "$RUNNER_TEMP/private_keys"
+          cp "$RUNNER_TEMP/host.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-host.mobileprovision"
+          cp "$RUNNER_TEMP/deviceactivity.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-deviceactivity.mobileprovision"
+          cp "$RUNNER_TEMP/shieldconfiguration.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-shieldconfiguration.mobileprovision"
+          cp "$RUNNER_TEMP/shieldaction.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-shieldaction.mobileprovision"
+          cp "$RUNNER_TEMP/AuthKey_${ASC_KEY_ID}.p8" "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          chmod 600 "$RUNNER_TEMP/distribution.p12" "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8" "$HOME/Library/MobileDevice/Provisioning Profiles"/*.mobileprovision
+          security find-identity -v -p codesigning "$KEYCHAIN" | grep -q 'Apple Distribution'
+
+      - name: Archive and export signed IPA
+        run: |
+          set -euo pipefail
+          test -n "$ASC_ISSUER_ID"
+          BUILD_NUMBER=$(date -u +%Y%m%d%H%M%S)
+          test "$BUILD_NUMBER" -gt 20260925121054
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
+          KEY_PATH="$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          xcodebuild archive \
+            -project Cramline.xcodeproj \
+            -scheme Cramline \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/Cramline.xcarchive" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            MARKETING_VERSION="$MARKETING_VERSION" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            CODE_SIGN_STYLE=Automatic \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>export</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>teamID</key><string>${TEAM_ID}</string>
+            <key>stripSwiftSymbols</key><true/>
+            <key>uploadSymbols</key><true/>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/Cramline.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Inspect exported application archive
+        run: |
+          set -euo pipefail
+          IPA=$(find "$RUNNER_TEMP/export" -maxdepth 1 -type f -name '*.ipa' -print -quit)
+          test -n "$IPA" && test -s "$IPA"
+          mkdir -p "$RUNNER_TEMP/inspection"
+          ditto -x -k "$IPA" "$RUNNER_TEMP/inspection"
+          APP=$(find "$RUNNER_TEMP/inspection/Payload" -maxdepth 1 -type d -name '*.app' -print -quit)
+          test -n "$APP"
+          PLIST="$APP/Info.plist"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$PLIST")" = "$EXPECTED_APP_ID"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$PLIST")" = "$MARKETING_VERSION"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$PLIST")" = "$BUILD_NUMBER"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' "$PLIST")" = 'Cramline'
+          EXTENSIONS=$(find "$APP/PlugIns" -maxdepth 1 -type d -name '*.appex' | wc -l | tr -d ' ')
+          test "$EXTENSIONS" = '3'
+          mkdir -p "$RUNNER_TEMP/inspection-report"
+          codesign -d --entitlements :- "$APP" > "$RUNNER_TEMP/inspection-report/host-entitlements.plist"
+          /usr/libexec/PlistBuddy -c 'Print :com.apple.developer.family-controls' "$RUNNER_TEMP/inspection-report/host-entitlements.plist" | grep -q true
+          /usr/libexec/PlistBuddy -c 'Print :com.apple.security.application-groups:0' "$RUNNER_TEMP/inspection-report/host-entitlements.plist" | grep -q "$EXPECTED_APP_GROUP"
+          for APPEX in "$APP"/PlugIns/*.appex; do
+            NAME=$(basename "$APPEX" .appex)
+            codesign --verify --deep --strict --verbose=2 "$APPEX"
+            codesign -d --entitlements :- "$APPEX" > "$RUNNER_TEMP/inspection-report/${NAME}-entitlements.plist"
+            /usr/libexec/PlistBuddy -c 'Print :com.apple.developer.family-controls' "$RUNNER_TEMP/inspection-report/${NAME}-entitlements.plist" | grep -q true
+            /usr/libexec/PlistBuddy -c 'Print :com.apple.security.application-groups:0' "$RUNNER_TEMP/inspection-report/${NAME}-entitlements.plist" | grep -q "$EXPECTED_APP_GROUP"
+          done
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          security cms -D -i "$APP/embedded.mobileprovision" > "$RUNNER_TEMP/inspection-report/host-profile.plist"
+          /usr/libexec/PlistBuddy -c 'Print :Entitlements:beta-reports-active' "$RUNNER_TEMP/inspection-report/host-profile.plist" | grep -q true
+          /usr/bin/codesign -dv --verbose=4 "$APP" 2> "$RUNNER_TEMP/inspection-report/codesign.txt"
+          grep -q 'Authority=Apple Distribution' "$RUNNER_TEMP/inspection-report/codesign.txt"
+          cp "$IPA" "$RUNNER_TEMP/inspection-report/Cramline-${MARKETING_VERSION}-${BUILD_NUMBER}.ipa"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'inspection-report'
+          meta={'bundleIdentifier':os.environ['EXPECTED_APP_ID'],'version':os.environ['MARKETING_VERSION'],'build':os.environ['BUILD_NUMBER'],'displayName':'Cramline','extensionCount':3,'appGroup':os.environ['EXPECTED_APP_GROUP'],'signed':True,'appleUploaded':False}
+          (root/'build-metadata.json').write_text(json.dumps(meta,indent=2)+'\n')
+          PY
+
+      - name: Upload inspected IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cramline-ios-${{ env.MARKETING_VERSION }}-${{ env.BUILD_NUMBER }}
+          path: ${{ runner.temp }}/inspection-report/
+          if-no-files-found: error
+          retention-days: 7

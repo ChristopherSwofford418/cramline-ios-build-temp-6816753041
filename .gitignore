@@ -1,0 +1,35 @@
+# Apple
+*.xcodeproj/
+!ios/Cramline.xcodeproj/
+!ios/Cramline.xcodeproj/**
+DerivedData/
+.build/
+.swiftpm/
+xcuserdata/
+*.xcuserstate
+ios/Cramline/Resources/GoogleService-Info.plist
+ios/certs/
+credentials.json
+Config/Release.xcconfig
+AuthKey_*.p8
+*.p8
+.expo/
+
+# Android
+android-companion/.gradle/
+android-companion/local.properties
+android-companion/**/build/
+
+# Node
+node_modules/
+server/node_modules/
+server/dist/
+build-*.tar.gz
+.env
+.env.*
+!.env.example
+
+# OS/editors
+.DS_Store
+.idea/
+.vscode/

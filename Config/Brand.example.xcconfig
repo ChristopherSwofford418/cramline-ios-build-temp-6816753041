@@ -1,0 +1,15 @@
+// Copy values into project.yml build settings or an uncommitted Release.xcconfig.
+// Every value is intentionally centralized for pre-launch renaming and legal review.
+CRAMLINE_APP_NAME = Cramline Exam Sprint
+CRAMLINE_APP_SUBTITLE = Study Focus & App Shield
+CRAMLINE_APP_BUNDLE_ID = com.clearpasstechnologies.cramline
+CRAMLINE_MONITOR_BUNDLE_ID = com.clearpasstechnologies.cramline.deviceactivity
+CRAMLINE_SHIELD_CONFIGURATION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldconfiguration
+CRAMLINE_SHIELD_ACTION_BUNDLE_ID = com.clearpasstechnologies.cramline.shieldaction
+CRAMLINE_APP_GROUP = group.com.clearpasstechnologies.cramline.shared
+CRAMLINE_PREMIUM_MONTHLY_PRODUCT_ID = com.clearpasstechnologies.cramline.premium.monthly
+DEVELOPMENT_TEAM = W356BF2Y83
+CRAMLINE_AI_BASE_URL =
+CRAMLINE_MIXPANEL_TOKEN =
+CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS = NO
+// Set published HTTPS support, privacy, and terms URLs in project.yml before release.

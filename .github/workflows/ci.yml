@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Run privacy lint
+        run: scripts/privacy-lint.sh
+      - name: Test shared Swift core
+        run: swift test --package-path Packages/CramlineCore
+      - name: Generate Xcode project
+        run: scripts/generate-xcode-project.sh
+      - name: Resolve packages
+        run: xcodebuild -resolvePackageDependencies -project ios/Cramline.xcodeproj -scheme Cramline
+      - name: Compile app and Screen Time extensions
+        run: >-
+          xcodebuild build
+          -project ios/Cramline.xcodeproj
+          -scheme Cramline
+          -sdk iphonesimulator
+          -destination 'generic/platform=iOS Simulator'
+          CODE_SIGNING_ALLOWED=NO
+          CRAMLINE_FIREBASE_ANALYTICS_ALLOW_AUTOMATIC_EVENTS=NO
+
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: android-companion
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - name: Install Android 36 platform
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Unit test and lint manual companion
+        run: ./gradlew testDebugUnitTest lintDebug --no-daemon
+      - name: Assert prohibited permissions are absent
+        working-directory: .
+        run: scripts/privacy-lint.sh
+
+  planning-service:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: server/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm test

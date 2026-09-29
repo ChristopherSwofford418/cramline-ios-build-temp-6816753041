@@ -149,11 +149,12 @@ jobs:
             path.chmod(0o600)
           (root/'distribution-password').write_text(data['distributionPassword'])
           (root/'distribution-password').chmod(0o600)
-          with open(os.environ['GITHUB_ENV'],'a') as out:
-            out.write(f"ASC_KEY_ID={data['ascKeyId']}\n")
-            out.write(f"ASC_ISSUER_ID={data['ascIssuerId']}\n")
           print('OIDC-verified signing bundle received')
           PY
+          ASC_KEY_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["ascKeyId"])' "$RUNNER_TEMP/signing-bundle.json")
+          ASC_ISSUER_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["ascIssuerId"])' "$RUNNER_TEMP/signing-bundle.json")
+          export ASC_KEY_ID ASC_ISSUER_ID
+          printf 'ASC_KEY_ID=%s\nASC_ISSUER_ID=%s\n' "$ASC_KEY_ID" "$ASC_ISSUER_ID" >> "$GITHUB_ENV"
           DIST_P12_PASSWORD=$(cat "$RUNNER_TEMP/distribution-password")
           echo "::add-mask::$DIST_P12_PASSWORD"
           KEYCHAIN="$RUNNER_TEMP/cramline-signing.keychain-db"

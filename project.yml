@@ -120,12 +120,12 @@ targets:
         embed: true
     preBuildScripts:
       - name: Verify privacy-sensitive source
-        script: "${PROJECT_DIR}/../scripts/privacy-lint.sh"
+        script: "${PROJECT_DIR}/scripts/privacy-lint.sh"
         basedOnDependencyAnalysis: false
     postCompileScripts:
       - name: Upload Crashlytics symbols when configured
         script: |
-          if [ -f "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run" ] && [ -f "${PROJECT_DIR}/Cramline/Resources/GoogleService-Info.plist" ]; then
+          if [ -f "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run" ] && [ -f "${PROJECT_DIR}/ios/Cramline/Resources/GoogleService-Info.plist" ]; then
             "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
           else
             echo "Crashlytics upload skipped: SDK script or GoogleService-Info.plist not configured."

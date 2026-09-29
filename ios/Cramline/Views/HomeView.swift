@@ -51,6 +51,7 @@ struct HomeView: View {
           actionInFlight = false
         }
       }
+      .accessibilityIdentifier("confirm-emergency-pause")
       Button("Keep studying", role: .cancel) {}
     } message: {
       Text("The app’s shield is removed immediately, then Cramline will attempt to resume it after 15 minutes. Exact callback timing is not guaranteed.")
@@ -64,6 +65,8 @@ struct HomeView: View {
           actionInFlight = false
         }
       }
+      .accessibilityIdentifier("confirm-end-session")
+      .accessibilityLabel("End today’s session — free and no penalty")
       Button("Keep studying", role: .cancel) {}
     } message: {
       Text("The study shield will be removed immediately. This action is free and has no penalty.")

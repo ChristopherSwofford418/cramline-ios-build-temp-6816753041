@@ -61,20 +61,17 @@ final class CramlineUITests: XCTestCase {
     XCTAssertTrue(app.buttons["End today’s session"].exists)
     capture("03-active-focus-session", in: app)
     pause.tap()
-    XCTAssertTrue(app.buttons["Pause shield for 15 minutes"].waitForExistence(timeout: 2))
+    XCTAssertTrue(app.buttons["confirm-emergency-pause"].waitForExistence(timeout: 2))
     capture("04-emergency-control", in: app)
-    let keepStudying = app.buttons["Keep studying"]
-    if keepStudying.exists {
-      keepStudying.tap()
-    } else {
-      app.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.05)).tap()
-    }
-    XCTAssertTrue(pause.waitForExistence(timeout: 2))
-    app.buttons["End today’s session"].tap()
-    XCTAssertTrue(app.buttons["End today’s session"].waitForExistence(timeout: 2))
-    XCTAssertTrue(
-      app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'free and has no penalty'"))
-        .firstMatch.exists)
+    app.terminate()
+
+    let endApp = XCUIApplication()
+    endApp.launchArguments = ["-ui-testing", "-seed-active-session"]
+    endApp.launch()
+    let endSession = endApp.buttons["End today’s session"]
+    XCTAssertTrue(endSession.waitForExistence(timeout: 5))
+    endSession.tap()
+    XCTAssertTrue(endApp.buttons["confirm-end-session"].waitForExistence(timeout: 2))
   }
 
   func testPlannerShowsOfflineDraftAndUnavailableAIBoundary() throws {

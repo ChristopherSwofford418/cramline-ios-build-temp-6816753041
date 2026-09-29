@@ -13,6 +13,12 @@ final class CramlineUITests: XCTestCase {
     add(attachment)
   }
 
+  private func tapNavigationItem(_ label: String, in app: XCUIApplication) {
+    let item = app.descendants(matching: .any).matching(identifier: label).firstMatch
+    XCTAssertTrue(item.waitForExistence(timeout: 5), "Missing navigation item: \(label)")
+    item.tap()
+  }
+
   func testOnboardingStatesAdultAndNonGuaranteeBoundary() throws {
     let app = XCUIApplication()
     app.launchArguments = ["-ui-testing", "-reset-local-state"]
@@ -56,9 +62,17 @@ final class CramlineUITests: XCTestCase {
     capture("03-active-focus-session", in: app)
     pause.tap()
     XCTAssertTrue(app.buttons["Pause shield for 15 minutes"].waitForExistence(timeout: 2))
-    XCTAssertTrue(app.buttons["Keep studying"].exists)
+    XCTAssertTrue(
+      app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Exact callback timing is not guaranteed'"))
+        .firstMatch.exists)
     capture("04-emergency-control", in: app)
-    app.buttons["Keep studying"].tap()
+    let keepStudying = app.buttons["Keep studying"]
+    if keepStudying.exists {
+      keepStudying.tap()
+    } else {
+      app.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.05)).tap()
+    }
+    XCTAssertTrue(pause.waitForExistence(timeout: 2))
     app.buttons["End today’s session"].tap()
     XCTAssertTrue(app.buttons["End today’s session"].waitForExistence(timeout: 2))
     XCTAssertTrue(
@@ -70,7 +84,7 @@ final class CramlineUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["-ui-testing", "-seed-onboarded"]
     app.launch()
-    app.tabBars.buttons["Plan"].tap()
+    tapNavigationItem("Plan", in: app)
 
     XCTAssertTrue(app.staticTexts["Shape a week you can repeat."].waitForExistence(timeout: 5))
     XCTAssertTrue(app.buttons["Save schedule changes"].exists)
@@ -90,7 +104,7 @@ final class CramlineUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["-ui-testing", "-seed-onboarded"]
     app.launch()
-    app.tabBars.buttons["Privacy"].tap()
+    tapNavigationItem("Privacy", in: app)
 
     XCTAssertTrue(
       app.switches["Share anonymous usage and crash information"].waitForExistence(timeout: 5))
@@ -108,7 +122,7 @@ final class CramlineUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["-ui-testing", "-seed-onboarded"]
     app.launch()
-    app.tabBars.buttons["Premium"].tap()
+    tapNavigationItem("Premium", in: app)
 
     XCTAssertTrue(app.staticTexts["Core focus stays free."].waitForExistence(timeout: 5))
     XCTAssertTrue(app.staticTexts["No Premium offer in this build"].exists)

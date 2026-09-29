@@ -170,6 +170,22 @@ jobs:
           cp "$RUNNER_TEMP/deviceactivity.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-deviceactivity.mobileprovision"
           cp "$RUNNER_TEMP/shieldconfiguration.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-shieldconfiguration.mobileprovision"
           cp "$RUNNER_TEMP/shieldaction.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/cramline-shieldaction.mobileprovision"
+          install_profile() {
+            local source="$1"
+            local env_name="$2"
+            local decoded="$RUNNER_TEMP/$(basename "$source").plist"
+            security cms -D -i "$source" > "$decoded"
+            local uuid
+            local name
+            uuid=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$decoded")
+            name=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$decoded")
+            cp "$source" "$HOME/Library/MobileDevice/Provisioning Profiles/${uuid}.mobileprovision"
+            printf '%s=%s\n' "$env_name" "$name" >> "$GITHUB_ENV"
+          }
+          install_profile "$RUNNER_TEMP/host.mobileprovision" CRAMLINE_HOST_PROFILE_NAME
+          install_profile "$RUNNER_TEMP/deviceactivity.mobileprovision" CRAMLINE_DEVICEACTIVITY_PROFILE_NAME
+          install_profile "$RUNNER_TEMP/shieldconfiguration.mobileprovision" CRAMLINE_SHIELDCONFIG_PROFILE_NAME
+          install_profile "$RUNNER_TEMP/shieldaction.mobileprovision" CRAMLINE_SHIELDACTION_PROFILE_NAME
           cp "$RUNNER_TEMP/AuthKey_${ASC_KEY_ID}.p8" "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
           chmod 600 "$RUNNER_TEMP/distribution.p12" "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8" "$HOME/Library/MobileDevice/Provisioning Profiles"/*.mobileprovision
           security find-identity -v -p codesigning "$KEYCHAIN" | grep -q 'Apple Distribution'
@@ -204,8 +220,15 @@ jobs:
           <plist version="1.0"><dict>
             <key>method</key><string>app-store-connect</string>
             <key>destination</key><string>export</string>
-            <key>signingStyle</key><string>automatic</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>Apple Distribution</string>
             <key>teamID</key><string>${TEAM_ID}</string>
+            <key>provisioningProfiles</key><dict>
+              <key>com.clearpasstechnologies.cramline</key><string>${CRAMLINE_HOST_PROFILE_NAME}</string>
+              <key>com.clearpasstechnologies.cramline.deviceactivity</key><string>${CRAMLINE_DEVICEACTIVITY_PROFILE_NAME}</string>
+              <key>com.clearpasstechnologies.cramline.shieldconfiguration</key><string>${CRAMLINE_SHIELDCONFIG_PROFILE_NAME}</string>
+              <key>com.clearpasstechnologies.cramline.shieldaction</key><string>${CRAMLINE_SHIELDACTION_PROFILE_NAME}</string>
+            </dict>
             <key>stripSwiftSymbols</key><true/>
             <key>uploadSymbols</key><true/>
           </dict></plist>
@@ -213,11 +236,7 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath "$RUNNER_TEMP/Cramline.xcarchive" \
             -exportPath "$RUNNER_TEMP/export" \
-            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" \
-            -authenticationKeyID "$ASC_KEY_ID" \
-            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist"
 
       - name: Inspect exported application archive
         run: |

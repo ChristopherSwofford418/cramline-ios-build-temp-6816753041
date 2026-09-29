@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 final class CramlineUITests: XCTestCase {
   override func setUpWithError() throws {
     continueAfterFailure = false
@@ -31,7 +32,7 @@ final class CramlineUITests: XCTestCase {
     ageToggle.tap()
     app.buttons["Continue"].tap()
     XCTAssertTrue(app.staticTexts["Choose your study sprint"].waitForExistence(timeout: 2))
-    XCTAssertTrue(app.datePickers["Sprint end date"].exists)
+    XCTAssertTrue(app.datePickers["Sprint end date"].waitForExistence(timeout: 5))
     XCTAssertTrue(app.buttons["Back"].exists)
   }
 

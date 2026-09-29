@@ -133,6 +133,7 @@ struct OnboardingView: View {
           in: minimumEndDate...maximumEndDate,
           displayedComponents: .date
         )
+        .accessibilityIdentifier("Sprint end date")
         Divider()
         Picker("Broad study domain", selection: $domain) {
           ForEach(BroadStudyDomain.allCases, id: \.self) { item in
